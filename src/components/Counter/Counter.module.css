@@ -1,0 +1,35 @@
+.CounterContainer {
+    width: 400px;
+    height: 300px;
+    background-color: #1c254f;
+    margin: 0 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.display {
+    width: 350px;
+    height: 200px;
+    border: 1px solid lightseagreen;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.display span {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.displayColor {
+    color: lightseagreen;
+}
+
+.countNumberLimit {
+    color: red;
+}
