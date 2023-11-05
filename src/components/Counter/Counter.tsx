@@ -1,10 +1,12 @@
 import React from "react";
 import s from './Counter.module.css'
 import {ButtonItem} from "../ButtonItem";
+import {LimitsValuesType} from "../../App";
+
 
 type PropsType = {
     count: number
-    maxValue: number
+    limitValues: LimitsValuesType
     onClickSetHandler: () => void
     onClickResetHandler: () => void
     onClickIncHandler: () => void
@@ -15,13 +17,17 @@ export const Counter = (props: PropsType) => {
         <div className={s.CounterContainer}>
             <div className={s.display}>
                 <span
-                    className={props.maxValue === props.count ? s.countNumberLimit : s.displayColor}>{props.count}</span>
+                    className={props.limitValues.maxValue === props.count ? s.countNumberLimit : s.displayColor}>{props.count}</span>
             </div>
             <div className={s.buttonsContainer}>
 
-                <ButtonItem title={'inc'} callback={props.onClickIncHandler}/>
-                <ButtonItem title={'reset'} callback={props.onClickResetHandler}/>
-                <ButtonItem title={'set'} callback={props.onClickSetHandler}/>
+                <button className={props.limitValues.maxValue === props.count ? s.disabledButton : ''}
+                        onClick={props.onClickIncHandler} value={'inc'}>inc
+                </button>
+                <button className={props.count === props.limitValues.minValue ? s.disabledButton : ''}
+                        onClick={props.onClickResetHandler} value={'reset'}>reset
+                </button>
+                <button onClick={props.onClickSetHandler} value={'set'}>set</button>
             </div>
         </div>
     )

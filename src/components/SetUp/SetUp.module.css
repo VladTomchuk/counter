@@ -27,7 +27,11 @@
     font-size: 20px;
 }
 
-.errorStyle{
-    cursor: not-allowed;
+.disabledButtonSet {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.inputError{
     background-color: red;
 }
