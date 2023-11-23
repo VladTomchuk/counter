@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import s from './App.module.css';
 import {SetUp} from "./components/SetUp/SetUp";
 import {Counter} from "./components/Counter/Counter";
+import {useDispatch, useSelector} from "react-redux";
+import {setLimitValuesAC} from "./state/settingsReducer";
+import {AppRootStateType} from "./state/store";
 
 
 export type LimitsValuesType = {
@@ -11,29 +14,33 @@ export type LimitsValuesType = {
 
 function App() {
 
-    const [displaySwitcher, setDisplaySwitcher] = useState(false)
-    const [limitValues, setLimitValues] = useState<LimitsValuesType>({minValue: 0, maxValue: 5})
-    const [count, setCount] = useState(0)
+    console.log("rerendered app")
+
+    const settings = useSelector<AppRootStateType, LimitsValuesType>(state => state.settingsReducer)
+    const dispatch = useDispatch()
+
+    const [displaySwitcher, setDisplaySwitcher] = useState(true)
+    const [count, setCount] = useState(settings ? settings.minValue : 0)
 
     const setLimitValuesHandler = (minValue: number, maxValue: number) => {
-        let newLimitValues = {minValue, maxValue}
-        setLimitValues(newLimitValues)
-        setCount(newLimitValues.minValue)
+        // @ts-ignore
+        dispatch(setLimitValuesAC(minValue, maxValue))
+        setCount(minValue)
     }
     const onClickIncHandler = () => {
-        if (count < limitValues.maxValue) {
+        if (count < settings.maxValue) {
             setCount(count + 1)
         }
-
     }
     const onClickResetHandler = () => {
-        setCount(limitValues.minValue)
+        setCount(settings.minValue)
     }
     const onClickSetHandler = () => {
-        if (!displaySwitcher) {
-            setDisplaySwitcher(true)
-        } else {
+        if (displaySwitcher) {
             setDisplaySwitcher(false)
+
+        } else {
+            setDisplaySwitcher(true)
         }
     }
 
@@ -42,18 +49,18 @@ function App() {
             <div className={s.MainContainer}>
                 <div className={s.CounterContainer}>
 
-                    {!displaySwitcher
+                    {displaySwitcher
 
                         ? <Counter
                             count={count}
-                            limitValues={limitValues}
+                            limitValues={settings}
                             onClickSetHandler={onClickSetHandler}
                             onClickResetHandler={onClickResetHandler}
                             onClickIncHandler={onClickIncHandler}
                         />
                         : <SetUp onClickSetHandler={onClickSetHandler}
                                  setLimitValuesHandler={setLimitValuesHandler}
-                                 limitValues={limitValues}
+                                 limitValues={settings}
                         />
                     }
 

@@ -3,15 +3,18 @@ import s from './Counter/Counter.module.css'
 
 type PropsType = {
     callback: () => void
-    title: string
+    value: 'set' | 'reset' | 'inc'
+    className: string;
 }
-export const ButtonItem = (props: PropsType) => {
-    let disablingButton = () => {
-
-    }
+export const ButtonItem = ({callback, value, className}: PropsType) => {
     return (
         <>
-            {/*<button className={} onClick={props.callback}>{props.title}</button>*/}
+            <button
+                className={className}
+                onClick={callback}
+                value={value}>
+                {value}
+            </button>
         </>
     )
 }

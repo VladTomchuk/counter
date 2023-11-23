@@ -1,7 +1,7 @@
 import React from "react";
 import s from './Counter.module.css'
-import {ButtonItem} from "../ButtonItem";
 import {LimitsValuesType} from "../../App";
+import {ButtonItem} from "../ButtonItem";
 
 
 type PropsType = {
@@ -21,13 +21,18 @@ export const Counter = (props: PropsType) => {
             </div>
             <div className={s.buttonsContainer}>
 
-                <button className={props.limitValues.maxValue === props.count ? s.disabledButton : ''}
-                        onClick={props.onClickIncHandler} value={'inc'}>inc
-                </button>
-                <button className={props.count === props.limitValues.minValue ? s.disabledButton : ''}
-                        onClick={props.onClickResetHandler} value={'reset'}>reset
-                </button>
-                <button onClick={props.onClickSetHandler} value={'set'}>set</button>
+                <ButtonItem
+                    className={props.limitValues.maxValue === props.count ? s.disabledButton : ''}
+                    callback={props.onClickIncHandler}
+                    value={'inc'}/>
+                <ButtonItem
+                    className={props.count === props.limitValues.minValue ? s.disabledButton : ''}
+                    callback={props.onClickResetHandler}
+                    value={'reset'}/>
+                <ButtonItem
+                    className={''}
+                    callback={props.onClickSetHandler}
+                    value={'set'}/>
             </div>
         </div>
     )

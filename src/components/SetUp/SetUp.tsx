@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState} from "react";
 import s from './SetUp.module.css'
 import {LimitsValuesType} from "../../App";
+import {ButtonItem} from "../ButtonItem";
 
 type PropsType = {
     onClickSetHandler: () => void
@@ -52,9 +53,6 @@ export const SetUp = (props: PropsType) => {
             // console.log(newMaxValue + ' is negative value!')
         }
     }
-    const validationError = () => {
-
-    }
 
     const SetSettings = () => {
         props.setLimitValuesHandler(minValue, maxValue)
@@ -75,7 +73,10 @@ export const SetUp = (props: PropsType) => {
                 </div>
             </div>
             <div>
-                <button className={error ? s.disabledButtonSet : ''} onClick={SetSettings} value={'set'}>set</button>
+                <ButtonItem
+                    className={error ? s.disabledButtonSet : ''}
+                    callback={SetSettings}
+                    value={'set'}/>
             </div>
         </div>
     )
